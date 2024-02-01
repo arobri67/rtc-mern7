@@ -8,6 +8,7 @@ const {
   getAllMiceInACage,
   addMouseToCage,
 } = require("../controllers/cageControllers");
+const { hasValidJWTToken } = require("../middlewares/authentication");
 const router = express.Router();
 
 //GET ALL cages from the DB
@@ -20,15 +21,15 @@ router.get("/:id", getCageById);
 router.get("/mice-list/:id", getAllMiceInACage);
 
 //POST create a cage
-router.post("/", createCage);
+router.post("/", hasValidJWTToken, createCage);
 
 //PUT update a cage
-router.put("/:id", updateCage);
+router.put("/:id", hasValidJWTToken, updateCage);
 
 //PUT add a mouse to a cage grabbed by ID (if it is already in the cage it will be removed). It will also change the cage_id in the corresponding mouse in the Mouse document
-router.put("/add-mouse-to-cage/:id", addMouseToCage);
+router.put("/add-mouse-to-cage/:id", hasValidJWTToken, addMouseToCage);
 
 //DELETE remove a cage
-router.delete("/:id", deleteCage);
+router.delete("/:id", hasValidJWTToken, deleteCage);
 
 module.exports = router;
