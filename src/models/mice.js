@@ -9,6 +9,7 @@ const mouseSchema = new mongoose.Schema({
   genotype: String,
   fatherId: Number,
   motherId: Number,
+  image: String,
   cage_id: { type: mongoose.Schema.Types.ObjectId, ref: "Cage" },
 });
 

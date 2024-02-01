@@ -6,6 +6,7 @@ const {
   deleteMouseDB,
   getCageOfMouseDB,
   updateMouseCageDB,
+  addMousePictureDB,
 } = require("../repositories/mouseFunctions");
 
 //GET ALL mice from the DB
@@ -33,6 +34,14 @@ const createMouse = async (req, res) => {
   const payload = req.body;
   const newMouse = await createMouseDB(payload);
   res.status(201).json({ data: newMouse });
+};
+
+//POST
+const addMousePicture = async (req, res) => {
+  const { id } = req.params;
+  const { path } = req.file;
+  await addMousePictureDB(id, path);
+  res.status(201).json({ data: "Sucess" });
 };
 
 //PUT update a mouse
@@ -66,4 +75,5 @@ module.exports = {
   deleteMouse,
   getCageOfMouse,
   updateMouseCage,
+  addMousePicture,
 };

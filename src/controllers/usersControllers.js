@@ -1,6 +1,7 @@
 const {
   createUserDB,
   getUserByEmailDB,
+  updateUserAvaterDB,
 } = require("../repositories/userFunctions");
 const {
   hashPassword,
@@ -45,4 +46,12 @@ const loginUser = async (req, res) => {
   res.status(200).json({ data: { token, restUser } });
 };
 
-module.exports = { createUser, loginUser };
+//POST add avater to user account
+const addAvatar = async (req, res) => {
+  const { path } = req.file;
+  const { id } = req.user;
+  await updateUserAvaterDB(id, path);
+  res.status(201).json({ data: "Sucess" });
+};
+
+module.exports = { createUser, loginUser, addAvatar };

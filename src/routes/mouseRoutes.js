@@ -8,8 +8,10 @@ const {
   deleteMouse,
   getCageOfMouse,
   updateMouseCage,
+  addMousePicture,
 } = require("../controllers/mouseControllers");
 const { hasValidJWTToken } = require("../middlewares/authentication");
+const { uploadFile } = require("../middlewares/upload");
 
 //GET ALL mice from the DB
 router.get("/", getAllMice);
@@ -22,6 +24,14 @@ router.get("/cage/:id", getCageOfMouse);
 
 //POST create a new mouse
 router.post("/", hasValidJWTToken, createMouse);
+
+//POST add a picture to a mouse
+router.post(
+  "/add-picture/:id",
+  hasValidJWTToken,
+  uploadFile("mice"),
+  addMousePicture
+);
 
 //PUT update a mouse
 router.put("/:id", hasValidJWTToken, updateMouse);

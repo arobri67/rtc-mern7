@@ -42,6 +42,10 @@ const createMouseDB = async (payload) => {
   }
 };
 
+const addMousePictureDB = async (id, path) => {
+  await Mouse.updateOne({ _id: id }, { image: path });
+};
+
 //PUT update a mouse
 const updateMouseDB = async (id, payload) => {
   try {
@@ -91,4 +95,5 @@ module.exports = {
   deleteMouseDB,
   getCageOfMouseDB,
   updateMouseCageDB,
+  addMousePictureDB,
 };

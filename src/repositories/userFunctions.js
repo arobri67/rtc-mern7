@@ -17,7 +17,19 @@ const createUserDB = async (payload) => {
 };
 
 const getUserByEmailDB = async (email) => {
-  const user = await User.findOne({ email }).lean();
-  return user;
+  try {
+    const user = await User.findOne({ email }).lean();
+    return user;
+  } catch (err) {
+    console.error("Error in getUserByEmailDB", err);
+  }
 };
-module.exports = { createUserDB, getUserByEmailDB };
+
+const updateUserAvaterDB = async (id, path) => {
+  try {
+    await User.updateOne({ _id: id }, { avatar: path });
+  } catch (err) {
+    console.error("Error in updateUserAvaterDB", err);
+  }
+};
+module.exports = { createUserDB, getUserByEmailDB, updateUserAvaterDB };
