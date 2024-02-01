@@ -10,6 +10,8 @@ const mouseRoutes = require("./routes/mouseRoutes");
 const { seedDataInitDB } = require("./repositories/seedFunctions");
 
 const app = express();
+app.set("trust proxy", true);
+
 app.use(
   cors({
     origin: "*",
@@ -18,12 +20,13 @@ app.use(
   })
 );
 const limiter = rateLimit({
-  windowMs: 3 * 60 * 1000, // 15 minutes
-  limit: 30, // Limit each IP to 100 requests per `window` (here, per 15 minutes).
-  standardHeaders: false, // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers.
+  windowMs: 3 * 60 * 1000,
+  limit: 30,
+  standardHeaders: false,
+  legacyHeaders: false,
+  trustProxy: true,
 });
-// Apply the rate limiting middleware to all requests.
+
 app.use(limiter);
 
 //limit size of the request
