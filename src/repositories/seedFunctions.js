@@ -3,8 +3,15 @@ const { Mouse } = require("../models/mice");
 const { Cage } = require("../models/cages");
 
 const clearDataDB = async () => {
-  await Cage.collection.drop();
-  await Mouse.collection.drop();
+  const cageCollectionExists = await Cage.exists();
+  const mouseCollectionExists = await Mouse.exists();
+
+  if (cageCollectionExists) {
+    await Cage.collection.drop();
+  }
+  if (mouseCollectionExists) {
+    await Mouse.collection.drop();
+  }
   console.log("Database cleared!!");
 };
 

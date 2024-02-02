@@ -10,7 +10,6 @@ const mouseRoutes = require("./routes/mouseRoutes");
 const { seedDataInitDB } = require("./repositories/seedFunctions");
 
 const app = express();
-// app.set("trust proxy", true);
 
 app.use(
   cors({
