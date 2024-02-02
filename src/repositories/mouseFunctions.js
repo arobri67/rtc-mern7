@@ -81,7 +81,8 @@ const updateMouseCageDB = async (id, action, cageId) => {
 //DELETE a mouse
 const deleteMouseDB = async (id) => {
   try {
-    await Mouse.findByIdAndDelete(id);
+    const mouseToDelete = await Mouse.findByIdAndDelete(id);
+    return mouseToDelete;
   } catch (err) {
     console.error("Error in deleteMouseDB", err);
   }
